@@ -1,0 +1,10 @@
+---
+- hosts: "{{ hostname }}"
+  gather_facts: no
+  tasks:
+    - name: transactional-update run
+      ansible.builtin.shell: transactional-update run "{{ cmd }}"
+    - name: Reboot
+      ansible.builtin.reboot:
+        post_reboot_delay: 60
+      when: reboot | default(true) | bool
